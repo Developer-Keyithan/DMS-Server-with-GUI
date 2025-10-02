@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HexabaseDB - Server Status</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>HexabaseDB</h1>
+            <p class="subtitle">Cross-Platform Database Management System</p>
+        </header>
+
+        <div class="status-card">
+            <div class="status-header">
+                <h2>Server Status</h2>
+                <div id="statusIndicator" class="status-indicator stopped">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Stopped</span>
+                </div>
+            </div>
+            
+            <div class="server-info">
+                <div class="info-item">
+                    <label>Uptime:</label>
+                    <span id="uptime">--</span>
+                </div>
+                <div class="info-item">
+                    <label>Memory Usage:</label>
+                    <span id="memory">--</span>
+                </div>
+                <div class="info-item">
+                    <label>Active Connections:</label>
+                    <span id="connections">--</span>
+                </div>
+                <div class="info-item">
+                    <label>Databases:</label>
+                    <span id="databases">--</span>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button id="startBtn" class="btn btn-primary">Start Server</button>
+                <button id="stopBtn" class="btn btn-danger" disabled>Stop Server</button>
+                <button id="restartBtn" class="btn btn-warning" disabled>Restart Server</button>
+                <button id="terminalBtn" class="btn btn-secondary">Open Terminal</button>
+            </div>
+        </div>
+
+        <div class="stats-card">
+            <h3>System Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value" id="totalUsers">--</div>
+                    <div class="stat-label">Total Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalDatabases">--</div>
+                    <div class="stat-label">Databases</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalCollections">--</div>
+                    <div class="stat-label">Collections</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="totalBuckets">--</div>
+                    <div class="stat-label">Buckets</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

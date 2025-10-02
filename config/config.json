@@ -1,0 +1,47 @@
+{
+  "server": {
+    "port": 7701,
+    "host": "127.0.0.1",
+    "cors": {
+      "enabled": true,
+      "origins": [
+        "*"
+      ]
+    }
+  },
+  "security": {
+    "jwtSecret": "hexabase-default-secret-change-in-production",
+    "tokenExpiry": "24h",
+    "passwordPolicy": {
+      "minLength": 8,
+      "requireNumbers": true,
+      "requireSpecialChars": true
+    }
+  },
+  "storage": {
+    "dataPath": "./data",
+    "encryption": {
+      "algorithm": "aes-256-gcm",
+      "keyRotationDays": 90
+    }
+  },
+  "logging": {
+    "level": "INFO",
+    "file": {
+      "enabled": true,
+      "maxSize": "10MB",
+      "maxFiles": 10
+    }
+  },
+  "performance": {
+    "cache": {
+      "enabled": true,
+      "maxSize": "100MB",
+      "ttl": 300
+    },
+    "compression": {
+      "enabled": true,
+      "threshold": "1KB"
+    }
+  }
+}

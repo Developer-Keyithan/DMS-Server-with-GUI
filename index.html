@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>HexabaseDB - Server Status</title>
     <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data:;
+    connect-src 'self' http://localhost:7701;
+">
 </head>
+
 <body>
+        <div class="background-container">
+        <div class="gradient-bg"></div>
+        <!-- <div class="gradient-overlay"></div> -->
+        <div class="particles" id="particles"></div>
+        <div class="pulse-grid"></div>
+        <div class="scan-line"></div>
+    </div>
+
     <div class="container">
         <header>
             <h1>HexabaseDB</h1>
@@ -20,7 +37,7 @@
                     <span class="status-text">Stopped</span>
                 </div>
             </div>
-            
+
             <div class="server-info">
                 <div class="info-item">
                     <label>Uptime:</label>
@@ -73,4 +90,5 @@
 
     <script src="renderer.js"></script>
 </body>
+
 </html>

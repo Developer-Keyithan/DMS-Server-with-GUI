@@ -4,6 +4,47 @@ class ServerStatusGUI {
         this.setupEventListeners();
         this.startStatusPolling();
         this.startUptimeUpdater();
+        this.createParticles(); 
+    }
+
+    // Create dynamic particles
+    createParticles() {
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 15;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            // Random size between 5 and 20px
+            const size = Math.random() * 15 + 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+
+            // Random position
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.left = `${Math.random() * 100}%`;
+
+            // Random animation delay
+            particle.style.animationDelay = `${Math.random() * 20}s`;
+
+            particlesContainer.appendChild(particle);
+        }
+
+        // Add hexagons
+        for (let i = 0; i < 5; i++) {
+            const hexagon = document.createElement('div');
+            hexagon.classList.add('hexagon');
+
+            // Random position
+            hexagon.style.top = `${Math.random() * 100}%`;
+            hexagon.style.left = `${Math.random() * 100}%`;
+
+            // Random animation delay
+            hexagon.style.animationDelay = `${Math.random() * 25}s`;
+
+            particlesContainer.appendChild(hexagon);
+        }
     }
 
     initializeElements() {
@@ -62,8 +103,13 @@ class ServerStatusGUI {
 
     async updateStatus() {
         const status = await this.fetchServerStatus();
+
+        // Only update GUI if status changed
+        if (!this.lastStatus || this.lastStatus.status !== status.status) {
+            this.updateUI(status);
+        }
+
         this.lastStatus = status;
-        this.updateUI(status);
     }
 
     async startUptimeUpdater() {
@@ -72,7 +118,7 @@ class ServerStatusGUI {
                 this.lastStatus.uptime += 3;
                 this.uptimeElement.textContent = this.formatUptime(this.lastStatus.uptime);
             }
-        }, 3000);
+        }, 2000);
     }
     updateUI(status) {
         // Update status indicator
@@ -82,6 +128,7 @@ class ServerStatusGUI {
         this.startBtn.disabled = status.status === 'running' || status.status === 'starting';
         this.stopBtn.disabled = status.status !== 'running';
         this.restartBtn.disabled = status.status !== 'running';
+        this.terminalBtn.disabled = status.status !== 'running';
 
         // Update server info
         if (status.status === 'running') {

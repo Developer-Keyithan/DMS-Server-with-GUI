@@ -94,24 +94,34 @@ class ApiServer {
             });
         });
 
+        this.app.get('/status', (req, res) => {
+            res.json({
+                status: 'healthy',
+                version: '1.0.0',
+                uptime: process.uptime(),
+                memory: process.memoryUsage(),
+                clients: this.clients.size
+            });
+        });
+
         // API routes
-        this.app.use('/api/v1/auth', authRouter);
-        this.app.use('/api/v1/db', dbRouter);
-        this.app.use('/api/v1/collections', collectionRouter);
-        this.app.use('/api/v1/files', fileRouter);
+        this.app.use('/v1/auth', authRouter);
+        this.app.use('/v1/db', dbRouter);
+        this.app.use('/v1/collections', collectionRouter);
+        this.app.use('/v1/files', fileRouter);
 
         // API documentation
-        this.app.get('/api', (req, res) => {
+        this.app.get('/doc', (req, res) => {
             res.json({
                 name: 'Hexabase API',
                 version: '1.0.0',
                 endpoints: {
-                    auth: '/api/v1/auth',
-                    databases: '/api/v1/db',
-                    collections: '/api/v1/collections',
-                    files: '/api/v1/files'
+                    auth: '/v1/auth',
+                    databases: '/v1/db',
+                    collections: '/v1/collections',
+                    files: '/v1/files'
                 },
-                documentation: 'https://docs.hexabase.io'
+                // documentation: 'https://docs.hexabase.io'
             });
         });
 
@@ -123,7 +133,7 @@ class ApiServer {
             res.json({
                 message: 'Hexabase Server',
                 version: '1.0.0',
-                documentation: '/api',
+                documentation: '',
                 health: '/health'
             });
         });
@@ -133,7 +143,7 @@ class ApiServer {
             res.status(404).json({
                 error: 'Endpoint not found',
                 path: req.originalUrl,
-                availableEndpoints: ['/api', '/health', '/api/v1/*']
+                availableEndpoints: ['', '/v1/*']
             });
         });
     }
@@ -190,25 +200,25 @@ class ApiServer {
     //     });
 
     //     // API routes
-    //     // this.app.use('/api/v1/auth', require('./routes/auth'));
-    //     // this.app.use('/api/v1/db', require('./routes/database'));
-    //     // this.app.use('/api/v1/collections', require('./routes/collection'));
-    //     // this.app.use('/api/v1/files', require('./routes/file'));
+    //     // this.app.use('/v1/auth', require('./routes/auth'));
+    //     // this.app.use('/v1/db', require('./routes/database'));
+    //     // this.app.use('/v1/collections', require('./routes/collection'));
+    //     // this.app.use('/v1/files', require('./routes/file'));
     //     // this.app.use('/status', require('./routes/status'));
 
 
 
     //     // API documentation
-    //     this.app.get('/api', (req, res) => {
+    //     this.app.get('', (req, res) => {
     //         res.json({
     //             name: 'Hexabase API',
     //             version: '1.0.0',
     //             endpoints: {
-    //                 auth: '/api/v1/auth',
-    //                 databases: '/api/v1/db',
-    //                 collections: '/api/v1/collections',
-    //                 files: '/api/v1/files',
-    //                 status: '/api/status'
+    //                 auth: '/v1/auth',
+    //                 databases: '/v1/db',
+    //                 collections: '/v1/collections',
+    //                 files: '/v1/files',
+    //                 status: '/status'
     //             },
     //             // documentation: 'https://docs.hexabase.io'
     //         });
@@ -222,9 +232,9 @@ class ApiServer {
     //         res.json({
     //             message: 'Hexabase Server',
     //             version: '1.0.0',
-    //             documentation: '/api',
+    //             documentation: '',
     //             health: '/health',
-    //             status: '/api/status'
+    //             status: '/status'
     //         });
     //     });
 
@@ -233,7 +243,7 @@ class ApiServer {
     //         res.status(404).json({
     //             error: 'Endpoint not found',
     //             path: req.originalUrl,
-    //             availableEndpoints: ['/api', '/health', '/api/status', '/api/v1/*']
+    //             availableEndpoints: ['', '/health', '/status', '/v1/*']
     //         });
     //     });
     // }

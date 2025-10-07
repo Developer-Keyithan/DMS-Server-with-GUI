@@ -21,6 +21,7 @@
     "commander": "^14.0.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
+    "electronmon": "^2.0.3",
     "express": "^4.21.2",
     "fs-extra": "^11.1.0",
     "inquirer": "^8.2.5",

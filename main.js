@@ -76,7 +76,7 @@ class HexabaseDesktop {
 
     createWindow() {
         this.mainWindow = new BrowserWindow({
-            width: 1000,
+            width: this.isDev ? 1500 : 1000,
             height: 800,
             minWidth: 800,
             minHeight: 600,
@@ -438,10 +438,16 @@ class HexabaseDesktop {
     }
 
     async restartServer() {
-        await this.stopServer();
-        await new Promise(resolve => setTimeout(resolve, 2000));
-        await this.startServer();
+        try {
+            await this.stopServer();
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            const result = await this.startServer();
+            return result;
+        } catch (error) {
+            return { success: false, message: error.message };
+        }
     }
+
 
     getServerStatus() {
         return {
